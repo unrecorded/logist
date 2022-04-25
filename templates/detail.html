@@ -1,0 +1,89 @@
+{% extends 'main.html' %}
+{% block content %}
+<div class="container">
+	<h3>Основные</h3>
+	<div class="row" style="border-radius: 3px;border-width: 1px;border-style: solid; padding: 25px;">
+		<div class="col">
+			<div><span><strong>ЭР ЯТА:&nbsp;</strong>{{ geo_detail.shipping_receipt }}</div>
+			<div><span><strong>Перевозка:&nbsp;</strong>{{ geo_detail.perevozka }}</div>
+			<div><span><strong>Акт:&nbsp;</strong></span>{{ geo_detail.act }}</div>
+		</div>
+		<div class="col">
+			<div><span><strong>Дата сдачи в ЯТА:&nbsp;</strong></span>{{ geo_detail.date_dilevery_sklad }}</div>
+			<div><span><strong>Дата отправления:&nbsp;</strong></span>{{ geo_detail.date_departure }}</div>
+			<div><span><strong>Дата встречи (План):&nbsp;</strong></span>{{ geo_detail.date_planned_meet }}</div>
+			<div><span><strong>Дата встречи (Факт):&nbsp;</strong></span>{{ geo_detail.date_fact_meet }}</div>
+		</div>
+		<div class="col">
+			<div><span><strong>Дата доставки:&nbsp;</strong></span>{{ geo_detail.date_dilevery }}</div>
+			<div><span><strong>Статуc:&nbsp;</strong></span>{{ geo_detail.status }}</div>
+			<div><span><strong>Рейс оплачен водителю:&nbsp;</strong>{{ geo_detail.paid_driver }}</div>
+		</div>
+	</div>
+	<br>
+	<h3>Затраты</h3>
+	<div class="row" style="border-radius: 3px;border-width: 1px;border-style: solid; padding: 25px;">
+		<div class="col">
+			<span><strong>Стоимость рейса:</strong></span>
+			<p>{{ geo_detail.price_dilevery }}</p>
+		</div>
+		<div class="col">
+			<span><strong>Расходы (Топливо и т.д.):</strong><br></span>
+			<p>{{ geo_detail.cost_dilevery }}</p>
+		</div>
+	</div>
+	<br>
+	<h3>Маршрут</h3>
+	<div class="row" style="border-radius: 3px;border-width: 1px;border-style: solid; padding: 25px;">
+		<div class="col">
+			<span><strong>Из города:</strong></span>
+			<p>{{ geo_detail.from_city }}</p>
+		</div>
+		<div class="col">
+			<span><strong>Транспорт 1:</strong></span>
+			<p>{{ geo_detail.from_transport }}</p>
+		</div>
+		<div class="col">
+			<span><strong>Через:</strong></span>
+			<p>{{ geo_detail.through_city }}</p>
+		</div>
+		<div class="col">
+			<span><strong>Транспорт 2:</strong></span>
+			<p>{{ geo_detail.through_transport }}</p>
+		</div>
+		<div class="col">
+			<span><strong>В город:</strong></span>
+			<p>{{ geo_detail.to_city }}</p>
+		</div>
+	</div>
+	<br>
+	<h3>Водитель и автомобиль</h3>
+	<div class="row" style="border-radius: 3px;border-width: 1px;border-style: solid; padding: 25px;">
+		<div class="col">
+			<span><strong>Водитель:</strong></span>
+			<p>{{ geo_detail.driver }}</p>
+		</div>
+		<div class="col">
+			<span><strong>Автомобиль:</strong><br></span>
+			<p>{{ geo_detail.auto }}</p>
+		</div>
+	</div>
+	<br>
+	<h3>Информация о грузе</h3>
+	<div class="row" style="border-radius: 3px;border-width: 1px;border-style: solid; padding: 25px;">
+		<div class="col">
+			<span><strong>По данным ЯТА:</strong><br></span>
+			<p>Вес:&nbsp;{{ geo_detail.weight_sklad }}</p>
+			<p>Мест:&nbsp;{{ geo_detail.places_sklad }}</p>
+			<p>Объем:&nbsp;{{ geo_detail.volume_sklad }}</p>
+		</div>
+		<div class="col">
+			<span><strong>По данным отправителя</strong><br></span>
+			<p>Вес: {{ geo_detail.weight_sender }}</p>
+			<p>Мест: {{ geo_detail.places_sender }}</p>
+			<p>Объем: {{ geo_detail.volume_sender }}</p>
+		</div>
+	</div>
+	<br>
+</div>
+{% endblock content %}

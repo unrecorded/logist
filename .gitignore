@@ -1,0 +1,5 @@
+/static/admin/
+/geo/__pycache__/
+/geo/migrations/
+/geo/templatetags/__pycache__/
+/logist/__pycache__/

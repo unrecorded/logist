@@ -1,0 +1,97 @@
+{% extends 'main.html' %}
+{% block content %}
+{% load widget_tweaks %}
+<div class="container">
+	<form method="post">
+		<h3>Основные</h3>
+		<div class="row" style="border-radius: 3px;border-width: 1px;border-style: solid; padding: 25px;">
+			<div class="col">
+				<div><span><strong>ЭР ЯТА:&nbsp;</strong>{% render_field form.shipping_receipt class="form-control" %}</div>
+				<div><span><strong>Перевозка:&nbsp;</strong>{% render_field form.perevozka class="form-control" %}</div>
+				<div><span><strong>Акт:&nbsp;</strong></span>{% render_field form.act class="form-control" %}</div>
+			</div>
+			<div class="col">
+				<div><span><strong>Дата сдачи в ЯТА:&nbsp;</strong></span>{% render_field form.date_dilevery_sklad id="datepicker" placeholder="01.01.1900" class="form-control" autocomplete="off" %}</div>
+				<div><span><strong>Дата отправления:&nbsp;</strong></span>{% render_field form.date_departure id="datepicker1" placeholder="01.01.1900" class="form-control" autocomplete="off" %}</div>
+				<div><span><strong>Дата встречи (План):&nbsp;</strong></span>{% render_field form.date_planned_meet id="datepicker2" placeholder="01.01.1900" class="form-control" autocomplete="off" %}</div>
+				<div><span><strong>Дата встречи (Факт):&nbsp;</strong></span>{% render_field form.date_fact_meet id="datepicker3" placeholder="01.01.1900" class="form-control" autocomplete="off" %}</div>
+			</div>
+			<div class="col">
+				<div><span><strong>Дата доставки:&nbsp;</strong></span>{% render_field form.date_dilevery id="datepicker4" placeholder="01.01.1900" class="form-control" autocomplete="off" %}</div>
+				<div><span><strong>Статуc:&nbsp;</strong></span>{% render_field form.status class="form-control" %}</div>
+				<div><span><strong>Рейс оплачен водителю:&nbsp;</strong>{% render_field form.paid_driver class="form-control" %}</div>
+			</div>
+		</div>
+		<br>
+		<h3>Затраты</h3>
+		<div class="row" style="border-radius: 3px;border-width: 1px;border-style: solid; padding: 25px;">
+			<div class="col">
+				<span><strong>Стоимость рейса:</strong></span>
+				<p>{% render_field form.price_dilevery class="form-control" %}</p>
+			</div>
+			<div class="col">
+				<span><strong>Расходы (Топливо и т.д.):</strong><br></span>
+				<p>{% render_field form.cost_dilevery class="form-control" %}</p>
+			</div>
+		</div>
+		<br>
+		<h3>Маршрут</h3>
+		<div class="row" style="border-radius: 3px;border-width: 1px;border-style: solid; padding: 25px;">
+			<div class="col">
+				<span><strong>Из города:</strong></span>
+				<p>{% render_field form.from_city class="form-control" %}</p>
+			</div>
+			<div class="col">
+				<span><strong>Транспорт 1:</strong></span>
+				<p>{% render_field form.from_transport class="form-control" %}</p>
+			</div>
+			<div class="col">
+				<span><strong>Через:</strong></span>
+				<p>{% render_field form.through_city class="form-control" %}</p>
+			</div>
+			<div class="col">
+				<span><strong>Транспорт 2:</strong></span>
+				<p>{% render_field form.through_transport class="form-control" %}</p>
+			</div>
+			<div class="col">
+				<span><strong>В город:</strong></span>
+				<p>{% render_field form.to_city class="form-control" %}</p>
+			</div>
+		</div>
+		<br>
+		<h3>Водитель и автомобиль</h3>
+		<div class="row" style="border-radius: 3px;border-width: 1px;border-style: solid; padding: 25px;">
+			<div class="col">
+				<span><strong>Водитель:</strong></span>
+				<p>{% render_field form.driver class="form-control" %}</p>
+			</div>
+			<div class="col">
+				<span><strong>Автомобиль:</strong><br></span>
+				<p>{% render_field form.auto class="form-control" %}</p>
+			</div>
+		</div>
+		<br>
+		<h3>Информация о грузе</h3>
+		<div class="row" style="border-radius: 3px;border-width: 1px;border-style: solid; padding: 25px;">
+			<div class="col">
+				<span><strong>По данным ЯТА:</strong><br></span>
+				<p>Вес:&nbsp;{% render_field form.weight_sklad class="form-control" %}</p>
+				<p>Мест:&nbsp;{% render_field form.places_sklad class="form-control" %}</p>
+				<p>Объем:&nbsp;{% render_field form.volume_sklad class="form-control" %}</p>
+			</div>
+			<div class="col">
+				<span><strong>По данным отправителя</strong><br></span>
+				<p>Вес: {% render_field form.weight_sender class="form-control" %}</p>
+				<p>Мест: {% render_field form.places_sender class="form-control" %}</p>
+				<p>Объем: {% render_field form.volume_sender class="form-control" %}</p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			{% csrf_token %}
+			<button type="submit" class="btn btn-primary">Сохранить</button>
+		</div>
+		<br>
+	</form>
+</div>
+{% endblock content %}

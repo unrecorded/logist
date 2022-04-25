@@ -1,0 +1,83 @@
+{% extends 'main.html' %}
+{% block content %}
+<div class="row">
+	<div class="col">
+		<div class="table-responsive">
+			<table class="table">
+				<thead>
+					<tr>
+						<th class="text-nowrap">№</th>
+						<th class="text-nowrap">Перевозка</th>
+						<th class="text-nowrap">Акт</th>
+						<th class="text-nowrap">Дата сдачи</th>
+						<th class="text-nowrap">Дата отправления</th>
+						<th class="text-nowrap">Дата встречи (План)</th>
+						<th class="text-nowrap">Дата встречи (Факт)</th>
+						<th class="text-nowrap">Из города</th>
+						<th class="text-nowrap">Транспорт</th>
+						<th class="text-nowrap">Через</th>
+						<th class="text-nowrap">Транспорт</th>
+						<th class="text-nowrap">В город</th>
+						<th class="text-nowrap">Дата доставки</th>
+						<th class="text-nowrap">Водитель</th>
+						<th class="text-nowrap">Мест ЯТА</th>
+						<th class="text-nowrap">Вес ЯТА</th>
+						<th class="text-nowrap">Объем ЯТА</th>
+						<th class="text-nowrap">Мест ГЕО</th>
+						<th class="text-nowrap">Вес ГЕО</th>
+						<th class="text-nowrap">Объем ГЕО</th>
+						<th class="text-nowrap">ЭР ЯТА</th>
+						<th class="text-nowrap">Оплачен</th>
+						<th class="text-nowrap">Статус</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for geos in geo %}
+					<tr class="text-nowrap table-pointer" data-href="{% url 'edit' geos.id  %}">
+						<td>{{ forloop.counter0|add:geo.start_index }}</td>
+						<td>{{ geos.perevozka }}</td>
+						<td>{{ geos.act }}</td>
+						<td>{{ geos.date_dilevery_sklad|date:'d.m.Y' }}</td>
+						<td>{{ geos.date_departure|date:'d.m.Y' }}</td>
+						<td>{{ geos.date_planned_meet|date:'d.m.Y' }}</td>
+						<td>{{ geos.date_fact_meet|date:'d.m.Y' }}</td>
+						<td>{{ geos.from_city }}</td>
+						<td>{{ geos.from_transport }}</td>
+						<td>{{ geos.through_city }}</td>
+						<td>{{ geos.through_transport }}</td>
+						<td>{{ geos.to_city }}</td>
+						<td>{{ geos.date_dilevery|date:'d.m.Y' }}</td>
+						<td>{{ geos.driver }}</td>
+						<td>{{ geos.places_sklad }}</td>
+						<td>{{ geos.weight_sklad }}</td>
+						<td>{{ geos.volume_sklad }}</td>
+						<td>{{ geos.places_sender }}</td>
+						<td>{{ geos.weight_sender }}</td>
+						<td>{{ geos.volume_sender }}</td>
+						<td>{{ geos.shipping_receipt }}</td>
+						<td style="background: {% if geos.paid_driver.pk == 2 %} red; {% else %} green; {% endif %} color:white;">{{ geos.paid_driver }}</td>
+						<td style="background: {% if geos.status.pk == 1 %} red; {% else %} green; {% endif %} color:white;">{{ geos.status }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<div class="pagination justify-content-center">
+	<span class="step-links">
+	{% if geo.has_previous %}
+	<a href="?page=1">&laquo; первая</a>
+	<a href="?page={{ geo.previous_page_number }}">назад</a>
+	{% endif %}
+	<span class="current">
+	Страница {{ geo.number }} из {{ geo.paginator.num_pages }}
+	</span>
+	{% if geo.has_next %}
+	<a href="?page={{ geo.next_page_number }}">вперед</a>
+	<a href="?page={{ geo.paginator.num_pages }}">последняя &raquo;</a>
+	{% endif %}
+	</span>
+</div>
+<br>
+{% endblock content %}
