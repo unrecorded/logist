@@ -10,67 +10,69 @@
 	}
 </style>
 <div class="container">
-	<div class="row">
-		<div class="col">
-			<div class="table-responsive">
-				<table class="table">
-					<thead>
-						<tr>
-							<th class="text-nowrap">№</th>
-							<th class="text-nowrap">Дата сдачи</th>
-							<th class="text-nowrap">Дата доставки</th>
-							<th class="text-nowrap">Из города</th>
-							<th class="text-nowrap">Через</th>
-							<th class="text-nowrap">В город</th>
-							<th class="text-nowrap">Водитель</th>
-							<th class="text-nowrap">Объем</th>
-							<th class="text-nowrap">Оплачен</th>
-							<th class="text-nowrap">Статус</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for geos in geo %}
-						<tr class="table-pointer" data-href="{% url 'edit' geos.id  %}">
-							<td>{{ forloop.counter0|add:geo.start_index }}</td>
-							<td>{{ geos.date_dilevery_sklad }}</td>
-							<td>{{ geos.date_dilevery }}</td>
-							<td>{{ geos.from_city }}</td>
-							<td>{{ geos.through_city }}</td>
-							<td>{{ geos.to_city }}</td>
-							<td>{{ geos.driver }}</td>
-							<td>{{ geos.volume_sender }}</td>
-							<td style="background: {% if geos.paid_driver.pk == 2 %} red; {% else %} green; {% endif %} color:white;">{{ geos.paid_driver }}</td>
-							<td style="background: {% if geos.status.pk == 1 %} red; {% else %} green; {% endif %} color:white;">{{ geos.status }}</td>
-						</tr>
-						{% endfor %}
-					</tbody>
-				</table>
+	<div class="posts-container px-3 mx-auto my-5">
+		<div class="row">
+			<div class="col">
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th class="text-nowrap">№</th>
+								<th class="text-nowrap">Дата сдачи</th>
+								<th class="text-nowrap">Дата доставки</th>
+								<th class="text-nowrap">Из города</th>
+								<th class="text-nowrap">Через</th>
+								<th class="text-nowrap">В город</th>
+								<th class="text-nowrap">Водитель</th>
+								<th class="text-nowrap">Объем</th>
+								<th class="text-nowrap">Оплачен</th>
+								<th class="text-nowrap">Статус</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for geos in geo %}
+							<tr class="table-pointer" data-href="{% url 'edit' geos.id  %}">
+								<td>{{ forloop.counter0|add:geo.start_index }}</td>
+								<td>{{ geos.date_dilevery_sklad }}</td>
+								<td>{{ geos.date_dilevery }}</td>
+								<td>{{ geos.from_city }}</td>
+								<td>{{ geos.through_city }}</td>
+								<td>{{ geos.to_city }}</td>
+								<td>{{ geos.driver }}</td>
+								<td>{{ geos.volume_sender }}</td>
+								<td style="background: {% if geos.paid_driver.pk == 2 %} red; {% else %} green; {% endif %} color:white;">{{ geos.paid_driver }}</td>
+								<td style="background: {% if geos.status.pk == 1 %} red; {% else %} green; {% endif %} color:white;">{{ geos.status }}</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
-	</div>
-	{% if dolg_sum.price_dilevery__sum != None %}
-	Сумма неоплаченных рейов (Без расходов): {{ dolg_sum.price_dilevery__sum|intcomma }} 
-	<br>
-	Расходы по неоплаченным: {{ rashod.cost_dilevery__sum|intcomma }} 
-	<br>
-	Долг водителю: {{ dolg_sum.price_dilevery__sum|subtract:rashod.cost_dilevery__sum|intcomma }}
-	{% endif %}
-	<div class="pagination justify-content-center">
-		<span class="step-links">
-		{% if geo.has_previous %}
-		<a href="?page=1">&laquo; первая</a>
-		<a href="?page={{ geo.previous_page_number }}">назад</a>
+		{% if dolg_sum.price_dilevery__sum != None %}
+		Сумма неоплаченных рейов (Без расходов): {{ dolg_sum.price_dilevery__sum|intcomma }} 
+		<br>
+		Расходы по неоплаченным: {{ rashod.cost_dilevery__sum|intcomma }} 
+		<br>
+		Долг водителю: {{ dolg_sum.price_dilevery__sum|subtract:rashod.cost_dilevery__sum|intcomma }}
 		{% endif %}
-		<span class="current">
-		Страница {{ geo.number }} из {{ geo.paginator.num_pages }}
-		</span>
-		{% if geo.has_next %}
-		<a href="?page={{ geo.next_page_number }}">вперед</a>
-		<a href="?page={{ geo.paginator.num_pages }}">последняя &raquo;</a>
-		{% endif %}
-		</span>
+		<div class="pagination justify-content-center">
+			<span class="step-links">
+			{% if geo.has_previous %}
+			<a href="?page=1">&laquo; первая</a>
+			<a href="?page={{ geo.previous_page_number }}">назад</a>
+			{% endif %}
+			<span class="current">
+			Страница {{ geo.number }} из {{ geo.paginator.num_pages }}
+			</span>
+			{% if geo.has_next %}
+			<a href="?page={{ geo.next_page_number }}">вперед</a>
+			<a href="?page={{ geo.paginator.num_pages }}">последняя &raquo;</a>
+			{% endif %}
+			</span>
+		</div>
+		<br>
 	</div>
-	<br>
 </div>
 <script>
 	$('tr[data-href]').on("click", function() {
